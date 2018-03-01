@@ -1,0 +1,30 @@
+{% do assetResolver().append('hid.app') %}
+{{ doctype()|raw }}
+<html lang="en">
+<head>
+    {% block head %}
+        <title>
+            {% block head_title %}{% endblock %} {{ translate('app.name') }}
+        </title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description"
+              content="{% block meta_description %}{{ translate('landing.description') }}{% endblock %}">
+        {{ headMeta()|raw }}
+        {% block head_links %}
+            {{ headLink()|raw }}
+        {% endblock %}
+    {% endblock %}
+</head>
+<body>
+<section id="content">
+    {% block content %}{% endblock %}
+</section>
+<section id="footer">
+    {% block footer %}{% endblock %}
+</section>
+{% block inline_scripts %}
+    {{ inlineScript()|raw }}
+{% endblock %}
+</body>
+</html>

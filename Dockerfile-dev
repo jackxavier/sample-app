@@ -1,0 +1,51 @@
+#
+# Use this dockerfile to run apigility in dev mode.
+#
+# Start the dev server using docker-compose:
+#
+#   docker-compose build
+#   docker-compose up
+#
+# OR use plain old docker 
+#
+#   docker build -f Dockerfile-dev -t apigility-dev .
+#   docker run -it -p "8080:80" -v $PWD:/var/www apigility-dev
+#
+FROM php:7.1-apache
+
+RUN apt-get update \
+ && apt-get install git zlib1g-dev nano libfreetype6-dev libjpeg62-turbo-dev -y --no-install-recommends \
+ && rm -r /var/lib/apt/lists/* \
+ && docker-php-ext-install zip \
+ && pecl install xdebug \
+ && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+ && docker-php-ext-enable xdebug \
+ && docker-php-ext-install gd \
+ && curl -sS https://getcomposer.org/installer \
+  | php -- --install-dir=/usr/local/bin --filename=composer \
+ && a2enmod rewrite \
+ && sed -i 's!/var/www/html!/var/www/public!g' /etc/apache2/apache2.conf \
+ && echo "AllowEncodedSlashes On" >> /etc/apache2/apache2.conf \
+ && tar xfJ /usr/src/php.tar.xz -C /usr/src/ \
+ && ls /usr/src \
+ && ln -s /usr/src/php-7.1.14 /usr/src/php \
+ && mv /var/www/html /var/www/public \
+ && ls -a /usr/src/php \
+ && cp /usr/src/php/php.ini-production /usr/local/etc/php/php.ini \
+ && printf '[Date]\ndate.timezone=UTC' > /usr/local/etc/php/conf.d/timezone.ini
+
+COPY docker/xdebug.ini /usr/local/etc/php/conf.d/xdebug.ini
+
+WORKDIR /var/www
+### END OF Dockerfile copy
+
+VOLUME /var/www
+
+RUN cp /usr/src/php/php.ini-development /usr/local/etc/php/php.ini \
+ && sed -i 's/;always_populate_raw_post_data/always_populate_raw_post_data/g' /usr/local/etc/php/php.ini
+
+CMD composer install \
+ && php public/index.php development enable \
+ && ( stat data/sqlite/database.sqlite || vendor/bin/doctrine-module orm:schema-tool:create) \
+ && php -S 0.0.0.0:80 -t public public/index.php
+

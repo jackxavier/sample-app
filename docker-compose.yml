@@ -1,0 +1,15 @@
+dev:
+  build: .
+  dockerfile: Dockerfile-dev
+  ports:
+   - "8080:80"
+  volumes:
+   - .:/var/www
+   - /tmp:/tmp
+  links:
+   - mailcatcher
+  user: www-data
+mailcatcher:
+  image: schickling/mailcatcher
+  ports:
+    - "1080:1080"
