@@ -1,0 +1,15 @@
+<div class="btn-group dropup language-switch">
+    <a href="#" class="btn btn-outline-gray dropdown-toggle" data-toggle="dropdown"
+       aria-haspopup="true" aria-expanded="false">
+        <span class="{{ current.class }} mr-2"></span>
+        {{ current.title }}
+    </a>
+    <div class="dropdown-menu">
+        {% for locale in collection %}
+            <a class="dropdown-item" href="{{ locale.value }}">
+                <span class="{{ locale.class }} mr-2"></span>
+                {{ locale.title }}
+            </a>
+        {% endfor %}
+    </div>
+</div>

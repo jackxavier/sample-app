@@ -1,0 +1,55 @@
+{% extends "layout/layout" %}
+
+{% from _self import print_exception %}
+
+{% macro print_exception(exception) %}
+    <dl>
+        <dt>{{ translate('app.error.file') }}:</dt>
+        <dd>
+                    <pre class="prettyprint linenums">{{ exception.file }} : {{ exception.line }}
+        </dd>
+        <dt>{{ translate('app.error.message') }}:</dt>
+        <dd>
+            <pre class="prettyprint linenums">{{ exception.message }}</pre>
+        </dd>
+        <dt>{{ translate('app.error.trace') }}:</dt>
+        <dd>
+            <pre class="prettyprint linenums">{{ exception.traceAsString }}</pre>
+        </dd>
+    </dl>
+{% endmacro %}
+
+{% block content %}
+    <div class="jumbotron text-center">
+        <h1>{{ translate('app.error.title') }}</h1>
+        <h2>{{ message }}</h2>
+    </div>
+
+    <div class="container">
+        {% if (display_exceptions) %}
+
+            <h2>{{ message }}</h2>
+
+            {% if (exception) %}
+
+                <hr>
+
+                <h2>{{ translate('app.error.additional.title') }}:</h2>
+                {{ print_exception(exception) }}
+
+                {% set e = exception.previous %}
+                {% if (e) %}
+
+                    <hr/>
+
+                    <h2>{{ translate('app.error.previous.title') }}:</h2>
+                    <ul class="unstyled">
+                        <li>
+                            {{ print_exception(e) }}
+                        </li>
+                    </ul>
+                {% endif %}
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}

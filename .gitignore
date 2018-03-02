@@ -1,0 +1,14 @@
+._*
+.~lock.*
+.buildpath
+.DS_Store
+.idea
+.project
+.settings
+.vagrant
+/vendor
+tests/_output/*
+/node_modules
+.env
+/*.sql
+package-lock.json
