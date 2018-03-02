@@ -2,17 +2,11 @@
 
 namespace Zsa\Util;
 
-use Zsa\Util\Hydrator\PropertyHydrator;
-use Zsa\Util\Validator\BaseValueTypeValidator;
 use Zend\ServiceManager\Factory\InvokableFactory;
+use Zsa\Util\Hydrator\PropertyHydrator;
 
 return [
-    'validators'      => [
-        'factories' => [
-            BaseValueTypeValidator::class => InvokableFactory::class,
-        ],
-    ],
-    'hydrators'       => [
+    'hydrators' => [
         'factories' => [
             PropertyHydrator::class => InvokableFactory::class,
         ],

@@ -38,13 +38,23 @@ class UserService
         return $this->userDao->find($id);
     }
 
+    /**
+     * @param array $params
+     *
+     * @return mixed
+     */
     public function fetchAll(array $params = [])
     {
-        $filter = new Filter();
+        $filter      = new Filter();
         $filterArray = [];
+        foreach ($params as $key => $paramName) {
+            if (isset($paramName)) {
+                $filterArray[$key] = $paramName;
+            }
+        }
 
+        $filter->fromArray($filterArray);
 
         return $this->userDao->findByFilter($filter);
     }
-
 }
