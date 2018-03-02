@@ -1,0 +1,10 @@
+<phpunit colors="true">
+    <testsuites>
+        <testsuite name="ProjectApi">
+            <directory>./module/Api/Project/tests</directory>
+        </testsuite>
+        <testsuite name="ProgramApi">
+            <directory>./module/Api/Program/tests</directory>
+        </testsuite>
+    </testsuites>
+</phpunit>

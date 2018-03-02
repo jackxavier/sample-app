@@ -39,5 +39,19 @@ return [
     'DoctrineModule',
     'DoctrineORMModule',
     'ZendTwig',
-    'ZfcRbac'
+    'ZfcRbac',
+    
+    'Application',
+    
+    'Api\\Program',
+    'Api\\Project',
+    
+    'Axmit\\Dao',
+    'Axmit\\Util',
+    'Axmit\\UserCore',
+    
+    'Zsa\\Pip',
+    'Zsa\\Program',
+    'Zsa\\Project',
+    'Zsa\\Util'
 ];

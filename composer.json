@@ -7,11 +7,37 @@
     "zfcampus/zf-apigility-documentation": "^1.2.3",
     "zf-commons/zfc-rbac": "^2.6",
     "aws/aws-sdk-php-zf2": "4.0.*",
+    "vlucas/phpdotenv": "^2.4",
     "monolog/monolog": "^1.23"
   },
   "require-dev": {
     "zendframework/zend-developer-tools": "^1.1",
     "zfcampus/zf-apigility-admin": "^1.5.9",
     "zfcampus/zf-asset-manager": "^1.1.1"
+  },
+  "autoload": {
+    "files": [
+      "module/Application/src/helpers.php"
+    ],
+    "psr-4": {
+      "Api\\Program\\": "module/Api/Program/src",
+      "Api\\Project\\": "module/Api/Project/src/",
+      "Application\\": "module/Application/src/",
+      "Axmit\\Util\\": "module/Axmit/Util/src/",
+      "Axmit\\UserCore\\": "module/Axmit/UserCore/src/",
+      "Axmit\\Dao\\": "module/Axmit/Dao/src/",
+      "Hid\\Program\\": "module/Zsa/Program/src",
+      "Hid\\Project\\": "module/Zsa/Project/src/",
+      "Hid\\Pip\\": "module/Zsa/Pip/src/",
+      "Hid\\Util\\": "module/Zsa/Util/src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Api\\ProjectTest\\": "module/Api/Project/tests/",
+      "Api\\ProgramTest\\": "module/Api/Program/tests/"
+    }
   }
+}
+
 }
